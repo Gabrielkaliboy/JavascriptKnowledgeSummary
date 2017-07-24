@@ -10,7 +10,7 @@ javascript闭包总结
 <The rest of contents | 余下全文>
 
 -----
-
+[老外的讨论](https://stackoverflow.com/questions/111102/how-do-javascript-closures-work)
 ### 1.作用域
 #### 1.1全局变量
 函数内部可以读取全局变量
@@ -299,3 +299,5 @@ console.log(i); // funcs[1]()就是执行 return i 语句，就是返回10
 ...
 console.log(i); // funcs[9]()就是执行 return i 语句，就是返回10
 ```
+
+#### 5.5
