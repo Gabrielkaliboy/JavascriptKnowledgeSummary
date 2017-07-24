@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function outerFun(){
+        var a=0;
+        function innerFun(){
+            a++;
+            alert(a);
+        }
+        return innerFun;//注意这里
+    }
+    var x=outerFun();
+    x();//1
+    x();//2
+    //innerFun内部函数在定义他的作用域外部引用,就创建了该内部函数的闭包
+    //如果内部函数引用了位于外部函数的变量.当外部函数调用完毕以后.这些
+    //变量在内存中不会被释放.因为闭包需要他们。
+</script>
+</html>

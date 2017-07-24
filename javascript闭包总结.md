@@ -127,7 +127,7 @@ console.log(f3());//3
 改变父函数内部变量的值。
 
 ### 5.闭包实例
-#### 5.匿名函数闭包(经典！)
+#### 5.1 匿名函数闭包(经典！)
 这个在js高级程序设计P182有
 **匿名函数的调用环境是window！！！！**
 ```javascript
@@ -170,8 +170,8 @@ object.getName()返回的是一个匿名函数，匿名函数的执行环境是w
 var object = {  
 name : "My Object",  
 getNameFunc : function(){  
-return function(){  
-return this.name;  
+    return function(){  
+        return this.name;  
         };  
     }  
 };  
@@ -204,3 +204,61 @@ getNameFunc :function(){
 };  
 alert(object.getNameFunc());//The Object  
 ```
+
+#### 5.2
+```javascript
+function outerFun(){
+    var a=0;
+    function innerFun(){
+        a++;
+        alert(a);
+    }
+}
+innerFun();
+// 报错，innerFun is not defined
+```
+上面的代码是错误的.innerFun()的作用域在outerFun()内部,所在outerFun()外部调用它是错误的.改成如下,也就是闭包:
+
+```javascript
+function outerFun(){
+    var a=0;
+    function innerFun(){
+        a++;
+        alert(a);
+    }
+    return innerFun;//注意这里
+}
+var x=outerFun();
+x();//1
+x();//2
+//innerFun内部函数在定义他的作用域外部引用,就创建了该内部函数的闭包
+//如果内部函数引用了位于外部函数的变量.当外部函数调用完毕以后.这些
+//变量在内存中不会被释放.因为闭包需要他们。
+```
+innerFun内部函数在定义他的作用域外部引用,就创建了该内部函数的闭包如果内部函数引用了位于外部函数的变量.当外部函数调用完毕以后.这些变量在内存中不会被释放.因为闭包需要他们。
+
+#### 5.3
+```javascript
+function outerFun(){
+    var a=0;
+    alert(a);
+}
+var a=4;
+outerFun();//0
+alert(a);//4
+```
+
+改一下
+```javascript
+function outerFun(){
+    a=0;//没有var关键字
+    alert(a);
+}
+var a=4;
+outerFun();//0
+alert(a);//0
+```
+为什么都是0？？？？**重点**
+作用域链是描述一种路径的术语,沿着该路径可以确定变量的值 .当执行a=0时,因为没有使用var关键字,因此赋值操作会沿着作用域链到var a=4;  并改变其值.
+
+#### 5.4
