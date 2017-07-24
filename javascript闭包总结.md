@@ -262,3 +262,40 @@ alert(a);//0
 作用域链是描述一种路径的术语,沿着该路径可以确定变量的值 .当执行a=0时,因为没有使用var关键字,因此赋值操作会沿着作用域链到var a=4;  并改变其值.
 
 #### 5.4
+```javascript
+function createFunctions(){
+    var result=new Array();
+    for(var i=0;i<10;i++){
+        //脚标0-9都是匿名函数
+        result[i]=function(){
+            return i;
+        };
+    }
+    //result是一个数组，且脚标0-9都是匿名函数
+    return result;
+}
+var funcs=createFunctions();//他就是result
+for(var i=0;i<funcs.length;i++){
+    console.log(funcs[i]());
+}
+```
+乍一看，以为输出 0~9 ，万万没想到输出10个10？
+这里的陷阱就是：函数带()才是执行函数！ 
+
+单纯的一句 var f = function() { alert('Hi'); }; 是不会弹窗的，后面接一句 f(); 才会执行函数内部的代码。上面代码翻译一下就是：
+
+```javascript
+var result = new Array(), i;
+result[0] = function(){ return i; }; //没执行函数，函数内部不变，不能将函数内的i替换！
+result[1] = function(){ return i; }; //没执行函数，函数内部不变，不能将函数内的i替换！
+...
+result[9] = function(){ return i; }; //没执行函数，函数内部不变，不能将函数内的i替换！
+i = 10;
+funcs = result;
+result = null;
+
+console.log(i); // funcs[0]()就是执行 return i 语句，就是返回10
+console.log(i); // funcs[1]()就是执行 return i 语句，就是返回10
+...
+console.log(i); // funcs[9]()就是执行 return i 语句，就是返回10
+```

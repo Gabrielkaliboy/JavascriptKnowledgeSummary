@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function createFunctions(){
+        var result=new Array();
+        for(var i=0;i<10;i++){
+            //脚标0-9都是匿名函数
+            result[i]=function(){
+                return i;
+            };
+        }
+        //result是一个数组，且脚标0-9都是匿名函数
+        return result;
+    }
+    var funcs=createFunctions();//他就是result
+    for(var i=0;i<funcs.length;i++){
+        console.log(funcs[i]());
+    }
+    //匿名函数里面的i还是createFunctions中for循环的i,此时i=10,
+    //所以你调用的时候返回的就是10
+</script>
+</html>
