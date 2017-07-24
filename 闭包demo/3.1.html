@@ -11,7 +11,9 @@
 </body>
 <script>
     function f1(){
-        var n=1;
+        var n=999;
+        //下面的ndd没有加var,所以他是全局变量，后面调用不会出错，如果加
+        //上，就成了f1的私有变量，后面调用会出错
         ndd=function(){
             n+=1;
         }
@@ -21,8 +23,8 @@
         return f2;
     }
     var result=f1();
-    result();//1
+    result();//999
     ndd();
-    result();//2
+    result();//1000
 </script>
 </html>
