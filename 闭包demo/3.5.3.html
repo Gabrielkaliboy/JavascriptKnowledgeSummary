@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="hello">你好</div>
+</body>
+<script>
+    function associateObjWithEvent(obj, methodName){
+    slice = Array.prototype.slice;
+    var args=slice.call(arguments,2);//从第三个参数开始赋值
+    return (function(e){       
+        e = e||window.event;
+        var array = slice.call(arguments, 0);
+        array.push(e); //第一个参数为event
+        return obj[methodName].apply(this,array.concat(args));//第二个参数，依次...
+    });
+}
+
+
+function DhtmlObject(elementId){   
+    var el = document.getElementById(elementId); 
+    if(el){
+        //el.onclick = associateObjWithEvent(this, "doOnClick");
+        el.onmouseover = associateObjWithEvent(this, "doMouseOver","hello2","aaa",event);//第一个参数为event，hello2是第二个参数，
+        //因为event只有在事件处理函数执行时才会知道是具体什么事件类型，无法通过传参提供，传参的event只能识别为null
+    }
+}
+
+DhtmlObject.prototype.doMouseOver = function(event){
+    // doMouseOver 方法体。
+    alert("this:"+this.id);//this:hello
+    alert("arg0:"+arguments[0]) ;//arg0:MouseEvent
+    alert("arg1:"+arguments[1]);//arg1:hello2
+    alert("arg2:"+arguments[2]);//arg2:aaa
+    alert("arg3-event:"+arguments[3]);//arg3-event:null
+    alert("event:"+event);//event:MouseEvent
+}
+//DhtmlObject("hello"); 这样写，反而出错。因为是类的写法，必须实例化才会执行。
+var hello=new DhtmlObject("hello")
+</script>
+</html>

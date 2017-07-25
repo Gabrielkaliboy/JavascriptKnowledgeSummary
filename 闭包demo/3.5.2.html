@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="hello">你好</div>
+</body>
+<script>
+function associateObjWithEvent(obj,methodName){
+    return (function(e){
+        e=e||window.event;
+        return obj[methodName](e);
+    });
+}
+
+function DragListener(){
+    this.down=function(){
+        alert(this)
+        alert(arguments[0])
+    },
+    this.move=function(){
+        alert(2)
+    }
+}
+
+var obj=new DragListener();
+
+document.getElementById("hello").onmousedown =obj.down;//正确 但我们在方法中用this访问到的对象是 dom
+document.getElementById("hello").onmousemove = obj.move;//正确
+
+document.getElementById("hello").onmousedown =associateObjWithEvent(obj,'down');//正确
+document.getElementById("hello").onmousemove = associateObjWithEvent(obj,'move');//正确
+</script>
+</html>

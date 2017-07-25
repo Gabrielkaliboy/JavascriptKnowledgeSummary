@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /* 声明一个全局变量 - getImgInPositionedDivHtml - 
+并将一次调用一个外部函数表达式返回的内部函数赋给它。
+
+   这个内部函数会返回一个用于表示绝对定位的 DIV 元素
+   包围着一个 IMG 元素 的 HTML 字符串，这样一来，
+   所有可变的属性值都由调用该函数时的参数提供：
+*/
+    var getImgInPositionedDivHtml = (function () {
+        /* 外部函数表达式的局部变量 - buffAr - 保存着缓冲数组。
+        这个数组只会被创建一次，生成的数组实例对内部函数而言永远是可用的
+        因此，可供每次调用这个内部函数时使用。
+    
+        其中的空字符串用作数据占位符，相应的数据
+        将由内部函数插入到这个数组中：
+        */
+        var buffAr = [
+            '<div id="',
+            '',   //index 1, DIV ID 属性
+            '" style="position:absolute;top:',
+            '',   //index 3, DIV 顶部位置
+            'px;left:',
+            '',   //index 5, DIV 左端位置
+            'px;width:',
+            '',   //index 7, DIV 宽度
+            'px;height:',
+            '',   //index 9, DIV 高度
+            'px;overflow:hidden;\"><img src=\"',
+            '',   //index 11, IMG URL
+            '\" width=\"',
+            '',   //index 13, IMG 宽度
+            '\" height=\"',
+            '',   //index 15, IMG 调蓄
+            '\" alt=\"',
+            '',   //index 17, IMG alt 文本内容
+            '\"><\/div>'
+        ];
+        /* 返回作为对函数表达式求值后结果的内部函数对象。
+        这个内部函数就是每次调用执行的函数
+        - getImgInPositionedDivHtml( ... ) -
+        */
+        return (function (url, id, width, height, top, left, altText) {
+            /* 将不同的参数插入到缓冲数组相应的位置：
+            */
+            buffAr[1] = id;
+            buffAr[3] = top;
+            buffAr[5] = left;
+            buffAr[13] = (buffAr[7] = width);
+            buffAr[15] = (buffAr[9] = height);
+            buffAr[11] = url;
+            buffAr[17] = altText;
+            /* 返回通过使用空字符串（相当于将数组元素连接起来）
+            连接数组每个元素后形成的字符串：
+            */
+            return buffAr.join('');
+        }); //:内部函数表达式结束。
+    })();
+    /*^^- :单行外部函数表达式。*/
+    //输出HTML字符串
+    document.write(getImgInPositionedDivHtml("www.baidu.com", "hello", 200, 100, 100, 40, "hello"))
+
+</script>
+
+</html>

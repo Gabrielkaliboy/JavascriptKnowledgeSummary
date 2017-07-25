@@ -10,13 +10,28 @@
     
 </body>
 <script>
-    function f1(){
-        function f2(){
-            alert(2);
-        }
+    //test1是全局变量
+    var test1=111;
+    function outer(){
+        alert(test1);
     }
-    //f2();//调用不到f2,会报undefined
-    f1();
-    f2();
+    outer();//111
+    alert(test1);//111
+
+
+    //闭包，test2是局部变量，这是闭包的目的
+    //我们经常在小范围内使用全局变量，这时候就可以使用b包来代替
+    (function(){
+        var test2 = 222;
+        function outer(){
+            alert(test2);
+        }
+        function test(){
+            alert("测试闭包:"+test2);
+        }
+        outer();//222
+        test();//测试闭包：222
+    })()
+    alert(test2);//未定义，这里就访问不到test2
 </script>
 </html>

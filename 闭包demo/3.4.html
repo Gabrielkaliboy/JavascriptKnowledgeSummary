@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="hello">测试</div>
+</body>
+<script>
+    //无法传参的情况
+    var parm = 222;
+    function f1(){
+        alert(111);
+    }
+    function f2(obj){
+        alert(obj);
+    }
+    //setTimeout(f1,500);//正确无参数111
+    //var test1=f2(parm);//执行以下f2函数 222
+
+    //setTimeout(f2,1000);//undefined 传参失败
+    //setTimeout(f2(parm),5000);//可以弹出222，但是定时器失效
+
+    // setTimeout(function(parm){alert(parm)},3000);//undefined，传参失败 
+    //document.getElementById("hello").onclick=f1; //正确111
+    //document.getElementById("hello").addEventListener("click",f1,false)//111
+
+    //正确做法，使用闭包
+    function f3(obj){
+        return function(){
+            alert(obj)
+            }
+        }
+    var test2=f3(parm);//返回f3的内部函数的引用
+    setTimeout(test2,500);//正确,222
+    document.getElementById("hello").onclick=test2;//正确,222
+    document.getElementById("hello").attachEvent("onclick",test2);//正确,222
+</script>
+</html>

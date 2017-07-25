@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<a href="hello">hello1</a>
+<a href="world">hello2</a>
+</body>
+<script>
+    //假设有两个a链接，id分别为"hello"、"world"
+function test(obj){ 
+    return function(){
+        alert(obj.id);
+    }
+}
+var nodes=document.getElementsByTagName("a");
+for(var i=0;i<nodes.length;i++){
+    var node=nodes[i]
+    nodes[i].attachEvent("onclick", function(){alert(node.id)})//点击链接时，hello链接弹出world，world链接也弹出world；
+                                                                  //这是因为循环完毕后，node被赋值为world元素
+                                                                  //这不是我们预期的结果！！！
+        
+    //正确写法一   
+   // 内部参数parm为任意指定的参数,如：(function(node){return function(){alert(node.id)}})(node)                                                         
+    nodes[i].attachEvent("onclick",(function(parm){return function(){alert(parm.id)}})(node))
+    //第一次循环创建了一个闭包，缓存的node参数为hello链接。
+    //第二次循环又创建了一个闭包，缓存的node参数为world链接。
+    //点击链接时，hello链接弹出hello，world链接弹出world，因为他们调用的是各自的node参数
+    
+    //正确写法二
+    var func=test(node);
+    nodes[i].attachEvent("onclick",func)
+}
+</script>
+</html>

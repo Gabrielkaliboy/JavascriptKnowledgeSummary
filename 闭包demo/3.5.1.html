@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <a href="">你好1</a>
+    <a href="">你好2</a>
+    <a href="">你好3</a>
+    <a href="">你好4</a>
+    <a href="">你好5</a>
+</body>
+<script>
+    //动态绑定a集合的注册点击事件，在事件处理函数test1中提供参数-该点击事件的a元素本身。
+var aa="ha!";
+function test(obj){
+    return function(){
+        alert(obj);
+    }
+}
+var nodes=document.getElementsByTagName("a");
+for(var i=0;i<nodes.length;i++){
+     var test1=test(aa);//由于是提前提供参数，只能提供已知的具体参数，无法事先得知点击事件的a元素本身。
+                //这里想提供点击事件的a元素本身作为参数宣告失败！
+    nodes[i].onclick=test1;//只有在注册点击事件时，才会知道该点击事件的a元素是哪个
+} 
+
+
+//以下是解决方式
+function associateObjWithEvent(obj,methodName){
+    return (function(e){
+        e=e||window.event;
+        return obj[methodName](e,this);//重点看这里！有两个参数，
+        //e:event，元素绑定事件时，绑定的是对内部函数的引用，故在触发事件时，执行的是内部函数。
+        //内部函数有个e参数，刚好在事件触发时，能捕获到是什么事件类型。
+        //this:这里需要的就是this参数，以便当元素触发事件处理函数执行时，this=触发事件的元素本身
+        //this参数无法从外部传入进来。传入进来的this都会被转化特定对象   
+        } 
+    );
+} 
+
+function DhtmlObject(elId){
+    var el=document.getElementById(elId);
+    if(el){
+        //el.onclick=associateObjWithEvent(this,"doOnClick");
+        el.onmouseover=associateObjWithEvent(this,"doMouseOver");
+        el.onmouseout=associateObjWithEvent(this,"doMouseOut");
+    }
+}
+DhtmlObject.prototype.doMouseOver=function(event,element){
+    alert(event);//第一个参数，只在事件执行时，才知道是什么事件，这里是MouseEvent
+    alert(arguments[0]);//第一参数，
+    alert(element);//第二个参数，只在事件执行时，才知道是指代触发事件的元素本身
+    alert(arguments[1]);//第二个参数
+}
+
+var hello=new DhtmlObject("hello");  //执行
+</script>
+</html>

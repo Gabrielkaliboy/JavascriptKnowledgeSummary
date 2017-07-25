@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+function f1(){
+    var test=111;
+    tmp_test=function(){return test;} //tmp_test是全局变量,这里对test的引用，产生闭包
+}
+
+function f2(){
+    alert("测试一："+tmp_test());
+    var test1=tmp_test();
+    alert("测试二："+test1);
+}
+f1();
+f2();
+//测试一：111
+//测试二：111
+alert(tmp_test()); //111
+//销毁
+tmp_test=null;
+</script>
+</html>
