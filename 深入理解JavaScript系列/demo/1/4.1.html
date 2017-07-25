@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //定义三个全局变量
+    var global_var=1;
+    global_novar=2;//反面教材
+    (function(){
+        global_fromfunc=3;//反面教材
+    })()
+
+    //试图删除
+    console.log(delete global_var);//false
+    console.log(delete global_novar);//true
+    console.log(delete global_fromfunc);//true
+
+    //测试删除
+    console.log(typeof global_var);//number
+    console.log(typeof global_novar);//undefined
+    console.log(typeof global_novar);//undefined
+</script>
+</html>

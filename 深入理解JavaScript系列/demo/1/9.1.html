@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 对象
+    var man = {
+        hands: 2,
+        legs: 2,
+        heads: 1
+    };
+
+    // 在代码的某个地方
+    // 一个方法添加给了所有对象
+    if (typeof Object.prototype.clone === "undefined") {
+        Object.prototype.clone = function () { };
+    }
+
+    //for..in循环
+    for(var i in man){
+        if(man.hasOwnProperty(i)){
+            //过滤
+            console.log(i,":",man[i]);
+        }
+    }
+    /* 控制台显示结果
+    hands : 2
+    legs : 2
+    heads : 1
+    */
+    // 2.
+    // 反面例子:
+    // for-in loop without checking hasOwnProperty()
+    for(var i in man){
+        console.log(i,":",man[i]);
+    }
+    /*
+    控制台显示结果
+    hands : 2
+    legs : 2
+    heads : 1
+    clone: function()
+    */
+</script>
+</html>
