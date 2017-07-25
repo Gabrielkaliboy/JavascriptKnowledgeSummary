@@ -84,7 +84,13 @@ console.log(f3());//3
 ### 2. 闭包的概念
 #### 2.1
 闭包就是能够读取其他函数内部变量的函数.由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成“定义在一个函数内部的函数”。所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。
+#### 2.2
+闭包，官方对闭包的解释是：一个拥有许多变量和绑定了这些变量的环境的表达式（通常是一个函数），因而这些变量也是该表达式的一部分。闭包的特点：
 
+　　1. 作为一个函数变量的一个引用，当函数返回时，其处于激活状态。
+
+　　2. 一个闭包就是当一个函数返回时，一个没有释放资源的栈区。
+　　简单的说，Javascript允许使用内部函数---即函数定义和函数表达式位于另一个函数的函数体内。而且，这些内部函数可以访问它们所在的外部函数中声明的所有局部变量、参数和声明的其他内部函数。当其中一个这样的内部函数在包含它们的外部函数之外被调用时，就会形成闭包。
 ### 3. 闭包的用途
 - 读取函数内部的变量
 
@@ -118,7 +124,7 @@ console.log(f3());//3
 这段代码中另一个值得注意的地方，就是“nAdd=function(){n+=1}”这一行，首先在nAdd前面没有使用var关键字，因此 nAdd是一个全局变量，而不是局部变量。其次，nAdd的值是一个匿名函数（anonymous function），而这个
 匿名函数本身也是一个闭包，所以nAdd相当于是一个setter，可以在函数外部对函数内部的局部变量进行操作。
 
-#### 3.2
+#### 3.2匿名自执行函数
 
 ### 4.使用闭包的注意点
 - 由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。
@@ -300,4 +306,86 @@ console.log(i); // funcs[1]()就是执行 return i 语句，就是返回10
 console.log(i); // funcs[9]()就是执行 return i 语句，就是返回10
 ```
 
-#### 5.5
+#### 5.5 利用闭包设置私有对象
+```javascript
+var db = (function() {
+// 创建一个隐藏的object, 这个object持有一些数据
+// 从外部是不能访问这个object的
+var data = {};
+// 创建一个函数, 这个函数提供一些访问data的数据的方法
+return function(key, val) {
+    if (val === undefined) { return data[key] } // get
+    else { return data[key] = val } // set
+    }
+// 我们可以调用这个匿名方法
+// 返回这个内部函数，它是一个闭包
+})();
+
+db('x'); // 返回 undefined
+db('x', 1); // 设置data['x']为1
+db('x'); // 返回 1
+// 我们不可能访问data这个object本身
+// 但是我们可以设置它的成员
+```
+
+### 6.闭包的几种写法(不是很好，可以不看)
+[看这里](http://www.cnblogs.com/yunfeifei/p/4019504.html)
+#### 6.1
+```
+    //这种写法没什么特别的，只是给函数添加一些属性。
+    function Circle(r){
+        this.r=r;
+    }
+    Circle.PI=3.1415926;
+    Circle.prototype.area=function(){
+        return Circle.PI*this.r*this.r;
+    }
+    var c=new Circle(1);
+    alert(c.area);
+```
+
+#### 6.2
+```
+    //这种写法是声明一个变量，将一个函数当作值赋给变量。
+    var Circle=function(){
+        var obj=new Object();
+        obj.PI=3.1415926;
+        obj.area=function(r){
+            return this.PI*r*r;
+        }
+        return obj;
+    };
+    var c=new Circle();
+    alert(c.area(1.0));
+```
+
+#### 6.3
+```
+    //这种方法最好理解，就是new 一个对象，然后给对象添加属性和方法。
+    var Circle=new Object();
+    Circle.PI=3.1415926;
+    Circle.area=function(r){
+        return this.PI*r*r;
+    }
+    alert(Circle.area(1.0));
+```
+
+#### 6.4
+```
+//这种方法使用较多，也最为方便。var obj = {}就是声明一个空的对象。
+var Circle={  
+   "PI":3.14159,  
+ "area":function(r){  
+          return this.PI * r * r;  
+        }  
+};  
+alert( Circle.area(1.0) ); 
+```
+
+#### 6.5
+```
+//第5种写法  
+var Circle = new Function("this.PI = 3.14159;this.area = function( r ) {return r*r*this.PI;}");  
+  
+alert( (new Circle()).area(1.0) );  
+```

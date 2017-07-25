@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //这种写法是声明一个变量，将一个函数当作值赋给变量。
+    var Circle=function(){
+        var obj=new Object();
+        obj.PI=3.1415926;
+        obj.area=function(r){
+            return this.PI*r*r;
+        }
+        return obj;
+    };
+    var c=new Circle();
+    alert(c.area(1.0));
+</script>
+</html>
