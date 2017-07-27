@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function foo() {
+        return bar();
+    }
+    function bar() {
+        return baz();
+    }
+    function baz() {
+        debugger;
+    }
+    foo();
+
+    // 这里我们使用了3个带名字的函数声明
+    // 所以当调试器走到debugger语句的时候，Firebug的调用栈上看起来非常清晰明了 
+    // 因为很明白地显示了名称
+    // baz
+    // bar
+    // foo
+    //  expr_test.html()
+</script>
+</html>

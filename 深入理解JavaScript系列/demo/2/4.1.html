@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    var f=function foo(){
+        return console.log(typeof foo);//foo是内部作用域有效
+    };
+    //foo在外部是不可见的
+
+    console.log(typeof foo);//undefined
+    f();//function
+</script>
+</html>
