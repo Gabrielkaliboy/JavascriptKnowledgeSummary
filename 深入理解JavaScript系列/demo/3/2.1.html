@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div1"></div>
+</body>
+<script>
+    var Calculator = function(eq){
+        //这里可以声明私有成员
+        var eqCtr=document.getElementById(eq);
+        return {
+            //暴露公开成员
+            add:function(x,y){
+                var val=x+y;
+                eqCtr.innerHTML=val;
+            }
+        };
+    }
+    //调用
+    var calculator = new Calculator("div1");
+    calculator.add(2,2);
+</script>
+</html>
