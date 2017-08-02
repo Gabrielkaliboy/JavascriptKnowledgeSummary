@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    var a=10,
+        b=20;
+        console.log(a);
+    function fn(){
+        var a=100,
+            b=200;
+            console.log(b);
+        function bar(){
+            //先在当前作用域找，如果没有就去上级找，如果上级还是没有
+            //再往上找，知道window
+            console.log(b);
+        }
+        bar();
+    }
+    fn();
+</script>
+</html>
