@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function fn(){
+        var max=10;
+        return function bar(x){
+            //如果这里给他12，后面if里面就会是12，他会在
+            //离他最近的作用域里面找，直到window
+            //var max=12;
+            if(x>max){
+                console.log(x);//15
+                console.log(max);//10
+            }
+        };
+    }
+    var f1=fn();
+    max=10;
+    f1(15);
+</script>
+</html>

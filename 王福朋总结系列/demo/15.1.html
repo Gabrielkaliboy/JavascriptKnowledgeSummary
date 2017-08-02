@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function fn(){
+        var max=10;
+        return function bar(x){
+            if(x>max){
+                console.log(x);//15
+            }
+        };
+    }
+    //作为返回值得函数里面调用了局部作用域里面的变量
+    var f1=fn();
+    f1(15);
+</script>
+</html>
