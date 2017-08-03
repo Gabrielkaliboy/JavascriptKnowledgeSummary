@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    var decimalDigits=2,
+        tax=5;      
+    var Calculator=function(decimalDigits,tax){
+        this.decimalDigits=decimalDigits;
+        this.tax=tax;
+    };
+    Calculator.prototype={
+        add:function(x,y){
+            return x+y;
+        },
+        subtract:function(x,y){
+            return x-y;
+        }
+    };
+    var m=(new Calculator()).add(1,2);
+    console.log(m);//3
+</script>
+</html>

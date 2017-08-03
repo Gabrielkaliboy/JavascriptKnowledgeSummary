@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    var decimalDigits=2,
+        tax=5;      
+    var Calculator=function(decimalDigits,tax){
+        this.decimalDigits=decimalDigits;
+        this.tax=tax;
+    };
+    Calculator.prototype=function(){
+        add=function(x,y){
+            return x+y;
+        },
+        subtract=function(x,y){
+            return x-y;
+        }
+
+        return {
+            add:add,
+            subtract:subtract
+        }
+    };//如果这里没有自执行
+    
+    //这样是拿不到的，因为你new出来以后就和构造函数没有关系了
+    // var z=new Calculator();
+    // console.log(z);
+
+    // var m=z.prototype;
+    // console.log(m);
+
+    var x=Calculator.prototype();
+
+    alert(x.add(11, 3));
+</script>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    var BaseCalculator=function(decimalDigits,tax){
+        this.decimalDigits=2;
+        this.tax=10;
+    };
+    BaseCalculator.prototype.add=function(x,y){
+        return x+y;
+        }
+    BaseCalculator.prototype.subtract=function(x,y){
+        return x-y;
+        }
+    
+    var Calculator=function(){
+        this.txt=5;
+    };
+    Calculator.prototype=new BaseCalculator();
+
+
+    // var cal=new Calculator();
+    // console.log(cal.add(1,2));//3
+    Calculator.prototype.add=function(x,y){
+        return x+y+this.tax;
+    };
+    var cal=new Calculator();
+    console.log(cal.add(1,2));//13
+</script>
+</html>
