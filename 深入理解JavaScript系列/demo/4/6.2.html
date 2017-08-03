@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <a href="">哈哈1</a>
+    <a href="">哈哈2</a>
+    <a href="">哈哈3</a>
+    <a href="">哈哈4</a>
+    <a href="">哈哈5</a>
+</body>
+<script>
+    var elems=document.getElementsByTagName('a');
+    for(var i=0;i<elems.length;i++){
+        (function(lockIndex){
+            elems[i].addEventListener('click',function(e){
+                e.preventDefault();
+                alert("我是第"+lockIndex+"链接");//这样就会弹出对应的
+                //alert("我是第"+i+"链接");如果这么写还是弹出总个数
+            },"false");
+        })(i)
+    }
+</script>
+</html>
