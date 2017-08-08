@@ -41,5 +41,16 @@
             }
         };
     }
+
+    function FastVehicle(my){
+        var my=my || {};
+        var that=new Vehicle(my);
+        that.accelerate=function(){
+            my.speed+=3;
+        };
+        return that;
+    }
+
+    
 </script>
 </html>
