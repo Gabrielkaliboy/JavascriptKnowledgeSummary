@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    var a={
+        x:10,
+        calculate: function(z){
+            return this.x+this.y+z;
+        }
+    };
+
+    var b={
+        y:20,
+        __proto__:a
+    };
+
+    var c={
+        y:30,
+        __proto__:a
+    };
+    console.log(b.calculate(30));//60
+    console.log(c.calculate(40));//80
+</script>
+</html>
