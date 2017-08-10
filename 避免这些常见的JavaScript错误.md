@@ -10,5 +10,5 @@ tags: [javascript]
 <The rest of contents | 余下全文>
 
 -----
-
+参考：https://modernweb.com/45-useful-javascript-tips-tricks-and-best-practices/
 ### 1.使用==而不是===
