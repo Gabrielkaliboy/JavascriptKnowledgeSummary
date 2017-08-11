@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    alert(x);
+    //变量声明在顺序上跟在函数声明和形式参数声明之后，而且
+    //  在这个进入上下文阶段，变量声明不会干扰VO中已经存在的同名函数声明或形式参数声明，
+
+    var x=10;
+    alert(x);//10
+
+    x=20;
+    function x(){}
+
+    alert(x);//20
+</script>   
+</html>

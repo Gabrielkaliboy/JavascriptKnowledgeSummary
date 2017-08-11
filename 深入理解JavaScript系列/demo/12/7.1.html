@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>这个例子只能在特定的浏览器里面</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    function bar(x) {
+        var x = 2;
+        alert(x);
+    }
+    bar(3);   //2
+
+    function foo(x) {
+        alert(x);//3
+        var x = 2;
+        alert(x);//2
+    }
+    foo(3); 
+
+</script>
+
+</html>

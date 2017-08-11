@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>这个例子只能在特定的浏览器里面</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var global = this;
+    var a = 10;
+
+    function foo() { }
+
+    alert(foo.__parent__); // global
+
+    var VO = foo.__parent__;
+
+    alert(VO.a); // 10
+    alert(VO === global); // true
+
+</script>
+
+</html>
