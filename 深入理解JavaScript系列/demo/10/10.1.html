@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function foo(){
+        alert(this);
+    }
+
+    //foo();//[object Window]
+
+    //foo.prototype.constructor();//[object Object]
+
+    var bar={
+        baz:foo
+    };
+
+    //bar.baz();//[object Object]
+
+    // (bar.baz)();//[object Object]
+
+    // (bar.baz=bar.baz)();
+
+    // (bar.baz,bar.baz)();
+
+    // (false || bar.baz)();
+
+    // var otherFoo=bar.baz;
+    // otherFoo();
+</script>
+</html>
