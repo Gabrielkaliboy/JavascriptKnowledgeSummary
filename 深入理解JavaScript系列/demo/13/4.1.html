@@ -16,8 +16,19 @@
     var bar={
         x:20,
         test:function(){
-            alert(this===bar8768768694864);
+            alert(this===bar);
+
+            alert(this.x);
+
+            this=foo;
+            alert(this.x);
         }
     };
+
+    bar.test();
+
+    foo.test=bar.test;
+
+    foo.test();
 </script>
 </html>
