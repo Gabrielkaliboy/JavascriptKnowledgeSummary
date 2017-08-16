@@ -11,4 +11,7 @@ tags: [javascript]
 
 -----
 参考：https://modernweb.com/45-useful-javascript-tips-tricks-and-best-practices/
+
+
+下面的代码在Chrome(v30),V8js引擎(V8 3.20.17.15)测试通过
 ### 1.使用==而不是===
