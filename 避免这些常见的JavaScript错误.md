@@ -175,14 +175,58 @@ arr instanceof Array; // false
 
 ### 18. 获取数组中的最大最小值
 
-```
+```javascript
 var  numbers = [5, 458 , 120 , -215 , 228 , 400 , 122205, -85411]; 
 var maxInNumbers = Math.max.apply(Math, numbers); 
 var minInNumbers = Math.min.apply(Math, numbers);
 ```
 
 ### 19.情况数组里面的元素
-```
+```javascript
 var myArray = [12 , 222 , 1000 ];  
 myArray.length = 0; // myArray will be equal to [].
+```
+
+### 20.不要使用delete去删除数组中的某一项
+使用splice去删除数组中的元素而不使用delete。使用delete会导致被删除项变为undefined而不是被移除。
+
+**不用**
+```javascript
+var items = [12, 548 ,'a' , 2 , 5478 , 'foo' , 8852, , 'Doe' ,2154 , 119 ]; 
+items.length; // return 11 
+delete items[3]; // return true 
+items.length; // return 11 
+/* items will be equal to [12, 548, "a", undefined × 1, 5478, "foo", 8852, undefined × 1, "Doe", 2154,       119]   */
+```
+
+**用这个**
+```javascript
+var items = [12, 548 ,'a' , 2 , 5478 , 'foo' , 8852, , 'Doe' ,2154 , 119 ]; 
+items.length; // return 11 
+items.splice(3,1) ; 
+items.length; // return 10 
+/* items will be equal to [12, 548, "a", 5478, "foo", 8852, undefined × 1, "Doe", 2154,       119]   */
+```
+delete应该用来删除对象的属性
+
+
+### 21.使用长度来截取数组元素
+像上面我们说的那个清空数组一样，我们可以使用数组长度的性质来截取数组元素
+
+```javascript
+var myArray = [12 , 222 , 1000 , 124 , 98 , 10 ];  
+myArray.length = 4; // myArray will be equal to [12 , 222 , 1000 , 124].
+```
+相反的，如果你把数组的length设置为高于其元素个数的值，不仅改变数组的length，而且其新的元素也会被赋值为undefined。数组的length属性不只是可读的。
+
+```javascript
+myArray.length = 10; // the new array length is 10 
+myArray[myArray.length - 1] ; // undefined
+```
+
+### 22.条件语句使用逻辑或/与
+```
+var foo = 10;  
+foo == 10 && doSomething(); // is the same thing as if (foo == 10) doSomething(); 
+foo == 5 || doSomething(); // is the same thing as if (foo != 5) doSomething();
 ```
