@@ -140,3 +140,23 @@ ownlevel-revealed条件注释允许在不承认条件注释的浏览器上包含
 
 <!--[if true]><![if IE 7]><p>This nested comment is displayed in IE 7.</p><![endif]><![endif]-->
 ```
+
+### 6.例子
+```
+<!--[if IE 5]>仅IE5.5可见<![endif]-->
+
+
+<!--[if gt IE 5.5]>仅IE 5.5以上可见<![endif]-->
+
+
+<!--[if lt IE 5.5]>仅IE 5.5以下可见<![endif]-->
+
+
+<!--[if gte IE 5.5]>IE 5.5及以上可见<![endif]-->
+
+
+<!--[if lte IE 5.5]>IE 5.5及以下可见<![endif]-->
+
+
+<!--[if !IE 5.5]>非IE 5.5的IE可见<![endif]-->
+```
