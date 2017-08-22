@@ -225,8 +225,43 @@ myArray[myArray.length - 1] ; // undefined
 ```
 
 ### 22.条件语句使用逻辑或/与
-```
+```javascript
 var foo = 10;  
 foo == 10 && doSomething(); // is the same thing as if (foo == 10) doSomething(); 
 foo == 5 || doSomething(); // is the same thing as if (foo != 5) doSomething();
 ```
+
+逻辑或可以用来设置一个默认值
+```
+function doSomething(arg1){ 
+    arg1 = arg1 || 10; // arg1 will have 10 as a default value if it’s not already set
+}
+```
+
+### 23.使用map()方法来循环遍历一个数组
+
+```
+var squares = [1,2,3,4].map(function (val) {  
+    return val * val;  
+}); 
+// squares will be equal to [1, 4, 9, 16] 
+```
+
+### 24.保留几位小数
+```
+var num =2.443242342;
+num = num.toFixed(4);  // num will be equal to 2.4432
+```
+注意，toFixed方法得到的是字符串而不是数值型！！
+
+### 25.浮点运算问题
+```
+0.1 + 0.2 === 0.3 // is false 
+9007199254740992 + 1 // is equal to 9007199254740992  
+9007199254740992 + 2 // is equal to 9007199254740994
+```
+为什么会出现：0.1 +0.2=0.30000000000000004这种情况？你需要知道的是,所有的JavaScript数据内部浮动点代表64位二进制根据IEEE 754标准，关于这个，[请看这里](http://2ality.com/2012/04/number-encoding.html)
+
+可以使用toFixed和toPrecision来修复这个问题
+
+### 26.使用for..in..来检测对象的属性(避免取到原型属性)
