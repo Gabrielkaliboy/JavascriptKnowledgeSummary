@@ -232,7 +232,7 @@ foo == 5 || doSomething(); // is the same thing as if (foo != 5) doSomething();
 ```
 
 逻辑或可以用来设置一个默认值
-```
+```javascript
 function doSomething(arg1){ 
     arg1 = arg1 || 10; // arg1 will have 10 as a default value if it’s not already set
 }
@@ -240,7 +240,7 @@ function doSomething(arg1){
 
 ### 23.使用map()方法来循环遍历一个数组
 
-```
+```javascript
 var squares = [1,2,3,4].map(function (val) {  
     return val * val;  
 }); 
@@ -248,14 +248,14 @@ var squares = [1,2,3,4].map(function (val) {
 ```
 
 ### 24.保留几位小数
-```
+```javascript
 var num =2.443242342;
 num = num.toFixed(4);  // num will be equal to 2.4432
 ```
 注意，toFixed方法得到的是字符串而不是数值型！！
 
 ### 25.浮点运算问题
-```
+```javascript
 0.1 + 0.2 === 0.3 // is false 
 9007199254740992 + 1 // is equal to 9007199254740992  
 9007199254740992 + 2 // is equal to 9007199254740994
@@ -265,3 +265,262 @@ num = num.toFixed(4);  // num will be equal to 2.4432
 可以使用toFixed和toPrecision来修复这个问题
 
 ### 26.使用for..in..来检测对象的属性(避免取到原型属性)
+避免遍历对象的原型的属性
+```javascript
+for (var name in object) {  
+    if (object.hasOwnProperty(name)) { 
+        // do something with name                    
+    }  
+}
+```
+
+### 27.逗号运算符
+```javascript
+var a = 0; 
+var b = ( a++, 99 ); 
+console.log(a);  // a will be equal to 1 
+console.log(b);  // b is equal to 99
+```
+
+### 28.缓存需要计算或查询的变量
+我们可以使用jQuery选择器来选择变量
+```javascript
+var navright = document.querySelector('#right'); 
+var navleft = document.querySelector('#left'); 
+var navup = document.querySelector('#up'); 
+var navdown = document.querySelector('#down');
+```
+
+### 29.使用isFinite来验证参数
+```javascript
+isFinite(0/0) ; // false 
+isFinite("foo"); // false 
+isFinite("10"); // true 
+isFinite(10);   // true 
+isFinite(undefined);  // false 
+isFinite();   // false 
+isFinite(null);  // true  !!! 
+```
+
+### 30避免使用负数的索引数组
+```javascript
+var numbersArray = [1,2,3,4,5]; 
+var from = numbersArray.indexOf("foo") ;  // from is equal to -1 
+numbersArray.splice(from,2);    // will return [5]
+```
+确保传递给splice 的参数不是负数
+
+### 31.序列化和反序列化
+```javascript
+var person = {name :'Saad', age : 26, department : {ID : 15, name : "R&D"} }; 
+var stringFromPerson = JSON.stringify(person); 
+/* stringFromPerson is equal to "{"name":"Saad","age":26,"department":{"ID":15,"name":"R&D"}}"   */ 
+var personFromString = JSON.parse(stringFromPerson);  
+/* personFromString is equal to person object  */
+```
+
+### 32.避免使用eval和构造函数
+eval好构造函数非常的影响性能，每次都必须被js引擎转换为可执行的代码
+```javascript
+var func1 = new Function(functionCode);
+var func2 = eval(functionCode);
+```
+
+### 33.避免使用with()
+[看这里](https://modernweb.com/ecommerce-conversion-optimization/)
+
+在全局作用域下使用with()来插入一个变量，这可能导致重名的变量被覆盖。
+
+### 34.避免在数组里面使用for..in..
+
+不要这么做
+```javascript
+var sum = 0;  
+for (var i in arrayNumbers) {  
+    sum += arrayNumbers[i];  
+}
+```
+最好这么做
+```javascript
+var sum = 0;  
+for (var i = 0, len = arrayNumbers.length; i < len; i++) {  
+    sum += arrayNumbers[i];  
+}
+```
+i和len在循环之前只声明了一次，比下面这种写法好
+```
+for (var i = 0; i < arrayNumbers.length; i++)
+```
+为什么呢？因为上面这种写法，在每次循环的时候都会被重新声明一次
+
+问题的根源就在于每次js引擎都要去重新计算一下length值，其实它已经是固定值了
+
+### 35.应该传递给setTimeout()和setInterval()函数名而不是字符串！
+
+如果你传递的参数是字符串，setTimeout()和setInterval()就会和eval一样了，影响速度
+
+不要这么写
+```javascript
+setInterval('doSomethingPeriodically()', 1000);  
+setTimeout('doSomethingAfterFiveSeconds()', 5000);
+```
+要这么写
+```javascript
+setInterval(doSomethingPeriodically, 1000);  
+setTimeout(doSomethingAfterFiveSeconds, 5000);
+```
+
+### 36.多用switch/case而不是if/else
+当有两个以上的case选项的时候，switch比if/else元算速度快，并且代码比较整洁；如果你有超过10个以上的case，就不要用了
+
+### 37.当switch/case用于一个数字区间的时候
+
+Using a switch/case statement with numeric ranges is possible with this trick.
+
+```javascript
+function getCategory(age) {  
+    var category = "";  
+    switch (true) {  
+        case isNaN(age):  
+            category = "not an age";  
+            break;  
+        case (age >= 50):  
+            category = "Old";  
+            break;  
+        case (age <= 20):  
+            category = "Baby";  
+            break;  
+        default:  
+            category = "Young";  
+            break;  
+    };  
+    return category;  
+}  
+getCategory(5);  // will return "Baby"
+```
+
+### 38.给新建对象的prototype赋值为一个对象
+It’s possible to write a function that creates an object whose prototype is the given argument like this…
+一个用来新建对象的函数，我们可以把他的原型prototype当做形参一样传进来。(翻译的不准确就看上面的英文)
+```javascript
+function clone(object) {  
+    function OneShotConstructor(){}; 
+    OneShotConstructor.prototype= object;  
+    return new OneShotConstructor(); 
+} 
+clone(Array).prototype ;  // []
+```
+### 39. An HTML escaper function
+```javascript
+function escapeHTML(text) {  
+    var replacements= {"<": "&lt;", ">": "&gt;","&": "&amp;", """: "&quot;"};                      
+    return text.replace(/[<>&"]/g, function(character) {  
+        return replacements[character];  
+    }); 
+}
+```
+
+### 40.避免在内部循环里面使用try-catch-finally 
+The try-catch-finally construct creates a new variable in the current scope at runtime each time the catch clause is executed where the caught exception object is assigned to a variable.
+
+不要这么写
+```javascript
+var object = ['foo', 'bar'], i;  
+for (i = 0, len = object.length; i <len; i++) {  
+    try {  
+        // do something that throws an exception 
+    }  
+    catch (e) {   
+        // handle exception  
+    } 
+}
+```
+
+要这么写
+```javascript
+var object = ['foo', 'bar'], i;  
+try { 
+    for (i = 0, len = object.length; i <len; i++) {  
+        // do something that throws an exception 
+    } 
+} 
+catch (e) {   
+    // handle exception  
+} 
+```
+
+### 41.设计超时限定来终止XMLHttpRequests
+可能由于网络问题导致很长时间内XMLHttpRequests不能访问。我们需要设计一个超时限定来终止请求
+
+```javascript
+var xhr = new XMLHttpRequest (); 
+xhr.onreadystatechange = function () {  
+    if (this.readyState == 4) {  
+        clearTimeout(timeout);  
+        // do something with response data 
+    }  
+}  
+var timeout = setTimeout( function () {  
+    xhr.abort(); // call error callback  
+}, 60*1000 /* timeout after a minute */ ); 
+xhr.open('GET', url, true);  
+
+xhr.send();
+```
+避免完全同步XHR调用
+
+#### 42.处理WebSocket超时
+Generally when a WebSocket connection is established, a server could time out your connection after 30 seconds of inactivity. The firewall could also time out the connection after a period of inactivity.
+
+To deal with the timeout issue you could send an empty message to the server periodically. To do this, add these two functions to your code: one to keep alive the connection and the other one to cancel the keep alive. Using this trick, you’ll control the timeout.
+
+Add a timerID…
+
+```javascript
+var timerID = 0; 
+function keepAlive() { 
+    var timeout = 15000;  
+    if (webSocket.readyState == webSocket.OPEN) {  
+        webSocket.send('');  
+    }  
+    timerId = setTimeout(keepAlive, timeout);  
+}  
+function cancelKeepAlive() {  
+    if (timerId) {  
+        cancelTimeout(timerId);  
+    }  
+}
+```
+The keepAlive() function should be added at the end of the onOpen() method of the webSocket connection and the cancelKeepAlive() at the end of the onClose() method.
+
+### 43.[基本操作比函数调用运算速度快，性能高](https://dev.opera.com/articles/efficient-javascript/?page=2#primitiveoperator)
+
+不要这么用：
+```javascript
+var min = Math.min(a,b); 
+A.push(v);
+```
+可以这么写
+```javascript
+var min = a < b ? a : b; 
+A[A.length] = v;
+```
+
+### 44.使用jslint和JSMin来优化你的代码
+
+### 45.最棒的javascript学习资源
+- Code Academy JavaScript tracks:https://www.codecademy.com/learn/javascript
+
+- Eloquent JavaScript by Marjin Haverbeke:http://eloquentjavascript.net/
+
+- Advanced JavaScript by John Resig:http://ejohn.org/apps/learn/
+
+
+### 参考
+- [JavaScript Performance Best Practices (CC)](https://networks.nokia.com/developer/mn)
+
+- [Google Code JavaScript tips](https://code.google.com/p/jslibs/wiki/JavascriptTips)
+
+- [StackOverFlow tips and tricks](https://stackoverflow.com/questions/724826/javascript-tips-and-tricks-javascript-best-practices)
+
+- [TimeOut for XHR](https://stackoverflow.com/questions/6888409/settimeout-for-xhr-requests)
