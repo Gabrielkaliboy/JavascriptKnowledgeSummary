@@ -181,7 +181,7 @@ var maxInNumbers = Math.max.apply(Math, numbers);
 var minInNumbers = Math.min.apply(Math, numbers);
 ```
 
-### 19.情况数组里面的元素
+### 19.清除数组里面的元素
 ```javascript
 var myArray = [12 , 222 , 1000 ];  
 myArray.length = 0; // myArray will be equal to [].
